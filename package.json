@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node app.js",
-    "server": "nodem app.js"
+    "server": "nodem app.js",
+    "dev": "concurrently \"npm run app\""
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
