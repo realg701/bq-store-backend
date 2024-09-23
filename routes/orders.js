@@ -3,43 +3,37 @@ import { Order } from "../models/order.js";
 
 export const orderRouter = express.Router();
 
-// // Order API
-// userRouter.post("/order", async (req, res) => {
-//   const { products, name, phoneNumber, address, email } = req.body;
+// Order Post API
+orderRouter.post("/order", async (req, res) => {
+  const { products, name, phoneNumber, address, email } = req.body;
+  console.log("Body:", req.body);
+  try {
+    const order = await Order.create({
+      products: products,
+      name: name,
+      phoneNumber: phoneNumber,
+      address: address,
+      email: email,
+    });
+    console.log("order", order);
+    return res.json({
+      message: "order created",
+      status: "success",
+    });
+  } catch (error) {
+    return res.json({
+      message: error.message,
+      status: "error",
+    });
+  }
+});
 
-//   const productsExist = await Order.findOne({ email });
-//   if (products == productsExist.products) {
-//     res.send({ message: "product already exist" });
-//     return;
-//   }
-//   const orderData = { products, name, phoneNumber, address, email };
-//   console.log(orderData);
-//   const orderInstance = new Order(orderData);
-//   const savedOrder = await orderInstance.save();
-//   res.send({ order: savedOrder, message: "Ordered sucessfully" });
-// });
-
-// // Login API
-// userRouter.post("/login", async (req, res) => {
-//   const { userName, passWord } = req.body;
-
-//   const isUser = await User.findOne({ userName });
-//   if (isUser) {
-//     const matchPassWord = await bcrypt.compare(passWord, isUser.passWord);
-//     if (matchPassWord) {
-//       const token = jwt.sign({ _id: isUser._id }, process.env.jwt_secret, {
-//         expiresIn: "30d",
-//       });
-//       res.send({
-//         matchPassWord,
-//         message: "Login Successfully",
-//         user: isUser,
-//         token,
-//       });
-//     } else {
-//       res.send({ matchPassWord, message: "Incorrect Password" });
-//     }
-//   } else {
-//     res.send({ message: "Incorrect Username" });
-//   }
-// });
+// Orders Get API
+orderRouter.get("/", async (req, res) => {
+  const allOrders = await Order.find({});
+  if (allOrders.length) {
+    res.send({ orders: allOrders });
+  } else {
+    res.send({ message: "No orders Availabe" });
+  }
+});
