@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 
 const orderSchema = mongoose.Schema(
   {
-    products: [],
-    name: String,
-    phoneNumber: Number,
-    address: String,
-    email: String,
+    products: { type: Array, required: true, unique: true },
+    name: { type: String, required: true, unique: true },
+    phoneNumber: { type: String, required: true, unique: true },
+    address: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
   },
   { timestamps: true }
 );
