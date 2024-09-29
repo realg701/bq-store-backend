@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema(
   {
-    userName: String,
-    passWord: String,
+    userName: { type: String, required: true, unique: true },
+    passWord: { type: String, required: true },
   },
   { timestamps: true }
 );
