@@ -5,11 +5,12 @@ const productSchema = mongoose.Schema(
     image: { type: String, required: true },
     title: { type: String, required: true },
     category: { type: String, required: true },
+    description: String,
+    brand: String,
     seller: { type: String, required: true },
-    price: { type: Number, default: 0 },
-    description: { type: String, default: "" },
-    units: { type: Number, default: 1 },
-    quantity: { type: Number, default: 1 },
+    price: Number,
+    units: Number,
+    quantity: Number,
   },
   { timestamps: true }
 );
