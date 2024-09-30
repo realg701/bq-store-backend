@@ -51,6 +51,10 @@ productRouter.delete("/:id", protect, async (req, res) => {
 
 productRouter.get("/:id", async (req, res) => {
   const productID = req.params.id;
-  const product = await Product.findOne({ _id: productID });
-  res.send({ product: product, message: "Product Found" });
+  try {
+    const product = await Product.findOne({ _id: productID });
+    res.send({ product: product, message: "Product Found", status: "success" });
+  } catch (error) {
+    res.send({ message: error.message, status: "error" });
+  }
 });
