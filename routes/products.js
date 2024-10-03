@@ -24,18 +24,26 @@ productRouter.post("/add", protect, async (req, res) => {
 
 productRouter.put("/edit/:id", protect, async (req, res) => {
   const productID = req.params.id;
-  const product = await Product.findOne({ _id: productID });
-  if (product) {
-    product.title = req.body.title;
-    product.category = req.body.category;
-    product.seller = req.body.seller;
-    product.image = req.body.image;
-    product.description = req.body.description;
-    product.price = req.body.price;
-    const savedProduct = await product.save();
-    res.send({ product: savedProduct, message: "Product Edited" });
-  } else {
-    res.send({ message: "Product Not Found" });
+  try {
+    const product = await Product.findOne({ _id: productID });
+    if (product) {
+      product.title = req.body.title;
+      product.category = req.body.category;
+      product.seller = req.body.seller;
+      product.image = req.body.image;
+      product.description = req.body.description;
+      product.price = req.body.price;
+      const savedProduct = await product.save();
+      res.send({
+        product: savedProduct,
+        message: "Product Edited",
+        status: "success",
+      });
+    } else {
+      res.send({ message: "Product Not Found", status: "not-found" });
+    }
+  } catch (error) {
+    res.send({ message: error.message, status: "error" });
   }
 });
 
