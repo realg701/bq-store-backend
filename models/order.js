@@ -7,6 +7,7 @@ const orderSchema = mongoose.Schema(
     phoneNumber: { type: String, required: true },
     address: { type: String, required: true },
     email: { type: String, required: true },
+    total: { type: Number, required: true },
   },
   { timestamps: true }
 );
