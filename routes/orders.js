@@ -5,7 +5,7 @@ export const orderRouter = express.Router();
 
 // Order Post API
 orderRouter.post("/order", async (req, res) => {
-  const { name, phoneNumber, address, email, products } = req.body;
+  const { name, phoneNumber, address, email, total, products } = req.body;
   console.log("Body:", req.body);
   try {
     if (products.length === 0)
@@ -19,6 +19,7 @@ orderRouter.post("/order", async (req, res) => {
       phoneNumber: phoneNumber,
       address: address,
       email: email,
+      total: total,
       products: products,
     });
     console.log("Order:", order);
