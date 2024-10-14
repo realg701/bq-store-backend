@@ -1,6 +1,7 @@
 import express from "express";
 import { Product } from "../models/product.js";
 import { protect } from "../middlewares/auth.js";
+import _ from "lodash";
 
 export const productRouter = express.Router();
 
@@ -11,6 +12,24 @@ productRouter.get("/all", async (req, res) => {
     res.send({ products: allProducts });
   } else {
     res.send({ message: "No Products Availabe" });
+  }
+});
+
+productRouter.get("/all/categories/:category", async (req, res) => {
+  const category = req.params.category;
+  try {
+    const allProducts = await Product.find({});
+    if (allProducts.length) {
+      const filteredProducts = _.filter(
+        allProducts,
+        (item) => item.category.toLowerCase() === category
+      );
+      res.send({ products: filteredProducts });
+    } else {
+      res.send({ message: "No Products Availabe" });
+    }
+  } catch (error) {
+    res.send({ message: error.message, status: "error" });
   }
 });
 
