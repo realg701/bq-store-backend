@@ -26,7 +26,7 @@ productRouter.get("/all/categories/:category", async (req, res) => {
       );
       res.send({ products: filteredProducts });
     } else {
-      res.send({ message: "No Products Availabe" });
+      res.send({ message: "No Products Availabe", status: "not_found" });
     }
   } catch (error) {
     res.send({ message: error.message, status: "error" });
