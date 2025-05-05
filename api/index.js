@@ -16,7 +16,9 @@ connectToDB();
 // Middlewares
 app.use(
   cors({
-    origin: "*",
+    origin: 'https://bq-store.vercel.app', // Replace with your frontend domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'] // Allowed headers
   })
 );
 app.use(express.json());
