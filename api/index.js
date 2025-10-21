@@ -15,10 +15,14 @@ const PORT = process.env.PORT || 3000;
 
 connectToDB();
 
-// Middlewares for CORS, Allow cross-origin requests
-app.use(cors({ origin: "*" }));
-
-// Middleware to parse JSON
+// Middlewares
+app.use(
+  cors({
+    origin: "https://bq-store.vercel.app", // Replace with your frontend domain
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+  })
+);
 app.use(express.json());
 
 // Greeting
