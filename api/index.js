@@ -11,14 +11,14 @@ import "dotenv/config";
 
 // APIs
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 connectToDB();
 
-// Middlewares
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+// Middlewares for CORS, Allow cross-origin requests
+app.use(cors({ origin: "*" }));
+
+// Middleware to parse JSON
 app.use(express.json());
 
 // Greeting
@@ -37,9 +37,7 @@ app.use("/orders", orderRouter);
 app.use("/products", productRouter);
 app.use("/upload", uploadRouter);
 
-// Server
-const PORT = process.env.PORT || 3000;
-
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
