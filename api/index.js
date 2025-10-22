@@ -11,6 +11,7 @@ import "dotenv/config";
 
 // APIs
 const app = express();
+
 const PORT = process.env.PORT || 3000;
 
 connectToDB();
@@ -18,11 +19,11 @@ connectToDB();
 // Middlewares
 app.use(
   cors({
-    origin: "https://bq-store.vercel.app", // Replace with your frontend domain
-    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
+
 app.use(express.json());
 
 // Greeting
